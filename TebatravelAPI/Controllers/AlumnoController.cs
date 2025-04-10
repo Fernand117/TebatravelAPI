@@ -20,7 +20,15 @@ namespace TebatravelAPI.Controllers
             {
                 var alumno = new AlumnoEntity()
                 {
-                    Nombre = alumnoRegistroDTO.Nombre
+                    Nombre = alumnoRegistroDTO.Nombre,
+                    Paterno = alumnoRegistroDTO.Paterno,
+                    Materno = alumnoRegistroDTO.Materno,
+                    NumCelular = alumnoRegistroDTO.NumCelular,
+                    FechaNacimiento = alumnoRegistroDTO.FechaNacimiento,
+                    Correo = alumnoRegistroDTO.Correo,
+                    Password = alumnoRegistroDTO.Password,
+                    CarreraId = alumnoRegistroDTO.CarreraId,
+                    EscuelaId = alumnoRegistroDTO.EscuelaId
                 };
 
                 await _context.AddAsync(alumno);
