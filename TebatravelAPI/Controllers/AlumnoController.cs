@@ -38,5 +38,14 @@ namespace TebatravelAPI.Controllers
                 return Ok(new ApiResponse(200, "Registrado", alumno));
             }
         }
+
+        [HttpPut]
+        public async Task<ActionResult> ActualizarAlumno([FromBody] AlumnoRegistroDTO alumnoRegistroDTO)
+        {
+            await using (var transaccion = await _context.Database.BeginTransactionAsync())
+            {
+                return Ok(new ApiResponse(200, "Datos del alumno actualizados"));
+            }
+        }
     }
 }
