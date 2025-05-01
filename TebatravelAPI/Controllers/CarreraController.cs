@@ -18,5 +18,14 @@ namespace TebatravelAPI.Controllers
             var carreras = await _context.CarreraEntities.ToListAsync();
             return Ok(new ApiResponse(200, "Lista de carreras", carreras));
         }
+        
+        [HttpGet("{id}")]
+        public async Task<ActionResult> ObtenerCarrera(int id)
+        {
+            var carrera = await _context.CarreraEntities.FindAsync(id);
+            if (carrera == null) return NotFound(new ApiResponse(404, "Carrera no encontrada"));
+            
+            return Ok(new ApiResponse(200, "Encontrado", carrera));
+        }
     }
 }
