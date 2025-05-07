@@ -4,6 +4,6 @@
     {
         public int CarreraId { get; set; }
         public string NombreCarrera { get; set; } = string.Empty;
-        public AlumnoEntity Alumno { get; set; } = new AlumnoEntity();
+        public AlumnoEntity Alumno { get; set; }
     }
 }

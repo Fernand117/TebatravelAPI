@@ -14,8 +14,8 @@
         public int CarreraId { get; set; }
         public int EscuelaId { get; set; }
 
-        public CarreraEntity Carrera { get; set; } = new CarreraEntity();
-        public EscuelaEntity Escuela { get; set; } = new EscuelaEntity();
+        public CarreraEntity Carrera { get; set; }
+        public EscuelaEntity Escuela { get; set; }
 
     }
 }

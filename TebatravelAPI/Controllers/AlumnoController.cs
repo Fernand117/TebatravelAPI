@@ -85,7 +85,7 @@ namespace TebatravelAPI.Controllers
 
             if (alumno == null) return Unauthorized(new ApiResponse(401, "Credenciales inválidas"));
             
-            return Ok(new ApiResponse(200, "Login exitoso", alumno));
+            return Ok(new ApiResponse(200, "Bienvenido a la UTCV!!", alumno));
         }
     }
 }

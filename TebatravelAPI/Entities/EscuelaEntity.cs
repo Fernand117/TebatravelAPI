@@ -5,6 +5,6 @@
         public int EscuelaId { get; set; }
         public string NombreEscuela { get; set; } = string.Empty;
         public string Clave { get; set; } = string.Empty;
-        public AlumnoEntity Alumno { get; set; } = new AlumnoEntity();
+        public AlumnoEntity Alumno { get; set; }
     }
 }

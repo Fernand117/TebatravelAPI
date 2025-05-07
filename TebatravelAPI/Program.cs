@@ -13,7 +13,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()  // Permite cualquier origen (no recomendado para producción)
+            .AllowAnyMethod()   // Permite cualquier método HTTP
+            .AllowAnyHeader();   // Permite cualquier encabezado
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors(); // ✅ Esto activa la política configurada
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
