@@ -18,6 +18,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  ef:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build  # ⚠️ usa la fase que tiene el SDK y ef CLI
+    entrypoint: ["dotnet", "ef"]
+    depends_on:
+      pgsql:
+        condition: service_healthy
+    environment:
+      - ConnectionStrings__DefaultConnectionString=Host=pgsql;Port=5432;Database=tebaDB;Username=postgres;Password=Master117+
+    working_dir: /src
+    volumes:
+      - .:/src
 
   api:
     build:
