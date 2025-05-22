@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TebatravelAPI.Context;
+using TebatravelAPI.Entities;
 
 namespace TebatravelAPI.Controllers
 {
@@ -26,6 +27,19 @@ namespace TebatravelAPI.Controllers
             if (carrera == null) return NotFound(new ApiResponse(404, "Carrera no encontrada"));
             
             return Ok(new ApiResponse(200, "Encontrado", carrera));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GuardarCarrera([FromBody] CarreraEntity carrera)
+        {
+            var carreraExistente = await _context.CarreraEntities.FirstOrDefaultAsync(x => x.NombreCarrera == carrera.NombreCarrera);
+            
+            if (carreraExistente != null) return BadRequest(new ApiResponse(400, "Carrera ya existe"));
+            
+            await _context.AddAsync(carrera);
+            await _context.SaveChangesAsync();
+            
+            return Ok(new ApiResponse(200, "Carrera guardada", carrera) );;
         }
     }
 }
