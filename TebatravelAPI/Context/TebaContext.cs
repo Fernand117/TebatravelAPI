@@ -7,15 +7,10 @@ namespace TebatravelAPI.Context
     {
         public TebaContext(DbContextOptions<TebaContext> options) : base(options) { }
         
-        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            if (!optionsBuilder.IsConfigured) optionsBuilder.UseNpgsql("host=localhost;port=5432;database=tebaDB;username=postgres;password=Master117+");
-        }*/
-
         public virtual DbSet<CarreraEntity> CarreraEntities { get; set; }
         public virtual DbSet<EscuelaEntity> EscuelaEntities { get; set; }
         public virtual DbSet<AlumnoEntity> AlumnoEntities { get; set; }
+        public virtual DbSet<AsistenciaEntity> AsistenciaEntities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
