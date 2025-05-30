@@ -75,6 +75,30 @@ namespace TebatravelAPI.Migrations
                     b.ToTable("Alumno", (string)null);
                 });
 
+            modelBuilder.Entity("TebatravelAPI.Entities.AsistenciaEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FechaAsistencia")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("IdAlumno")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdCarrera")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id")
+                        .HasName("PK_AsistenciaId");
+
+                    b.ToTable("Asistencia", (string)null);
+                });
+
             modelBuilder.Entity("TebatravelAPI.Entities.CarreraEntity", b =>
                 {
                     b.Property<int>("CarreraId")
