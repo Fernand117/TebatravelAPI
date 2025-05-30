@@ -10,10 +10,7 @@ namespace TebatravelAPI.Controllers
     {
         private readonly TebaContext _context;
 
-        public AsistenciaController(TebaContext context)
-        {
-            _context = context;
-        }
+        public AsistenciaController(TebaContext context) { _context = context; }
 
         [HttpPost]
         public async Task<ActionResult> RegistroAsistencia([FromBody] AsistenciaEntity asistencia)

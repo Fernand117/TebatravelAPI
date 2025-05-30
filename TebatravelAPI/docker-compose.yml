@@ -1,37 +1,23 @@
-﻿version: '3.9'
+﻿version: '3.8'
 
 services:
 
   pgsql:
     image: postgres:16
-    container_name: pgsql
+    container_name: teba-pgsql
     environment:
+      POSTGRES_DB: tebatravel
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Master117+
-      POSTGRES_DB: tebaDB
+      POSTGRES_PASSWORD: postgres
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - teba_pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "55432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 5
-  ef:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: build  # ⚠️ usa la fase que tiene el SDK y ef CLI
-    entrypoint: ["dotnet", "ef"]
-    depends_on:
-      pgsql:
-        condition: service_healthy
-    environment:
-      - ConnectionStrings__DefaultConnectionString=Host=pgsql;Port=5432;Database=tebaDB;Username=postgres;Password=Master117+
-    working_dir: /src
-    volumes:
-      - .:/src
 
   api:
     build:
@@ -41,19 +27,11 @@ services:
     depends_on:
       pgsql:
         condition: service_healthy
+    ports:
+      - "8082:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnectionString=Host=pgsql;Port=5432;Database=tebaDB;Username=postgres;Password=Master117+
-    ports:
-      - "8080:8080"
-    command: >
-      sh -c "
-        dotnet ef database update &&
-        dotnet TebatravelAPI.dll
-      "
-    working_dir: /app
-    volumes:
-      - .:/src
+      - ConnectionStrings__DefaultConnection=Host=pgsql;Port=5432;Database=tebatravel;Username=postgres;Password=postgres
 
 volumes:
-  pgdata:
+  teba_pgdata:
