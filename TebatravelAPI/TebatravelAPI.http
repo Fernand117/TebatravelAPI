@@ -4,16 +4,3 @@ GET {{TebatravelAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
-
-GET {{TebatravelAPI_HostAddress}}/api/Alumno
-Accept: application/json
-
-###
-
-POST {{TebatravelAPI_HostAddress}}/api/Alumno
-Accept: application/json
-Content-Type: text/json
-
-{
-    "clave": "valor"
-}

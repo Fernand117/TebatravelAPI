@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TebatravelAPI.Context;
-using TebatravelAPI.Entities;
 
 namespace TebatravelAPI.Controllers
 {
@@ -16,7 +15,7 @@ namespace TebatravelAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> ListEscuelas()
         {
-            var escuelas = await _context.EscuelaEntities.ToListAsync();
+            var escuelas = await _context.Escuelas.ToListAsync();
 
             return Ok(new ApiResponse(200, "Lista de escuelas", escuelas));
         }
@@ -24,22 +23,10 @@ namespace TebatravelAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> ObtenerEscuela(int id)
         {
-            var escuela = await _context.EscuelaEntities.FindAsync(id);
+            var escuela = await _context.Escuelas.FindAsync(id);
             if (escuela == null) return NotFound(new ApiResponse(404, "Escuela no encontrada"));
             
             return Ok(new ApiResponse(200, "Encontrado", escuela));
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> GuardarEscuela([FromBody] EscuelaEntity escuela)
-        {
-            var escuelaExiste = await _context.EscuelaEntities.FirstOrDefaultAsync(e => e.NombreEscuela == escuela.NombreEscuela);
-            if (escuelaExiste != null) return BadRequest(new ApiResponse(400, "Escuela ya existe"));
-            
-            await _context.AddAsync(escuela);
-            await _context.SaveChangesAsync();
-            
-            return Ok(new ApiResponse(200, "Escuela guardada", escuela) );;
         }
     }
 }

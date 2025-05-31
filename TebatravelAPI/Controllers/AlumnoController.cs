@@ -43,7 +43,7 @@ namespace TebatravelAPI.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> EditarAlumno(int id, [FromBody] AlumnoRegistroDTO alumnoDTO)
         {
-            var alumno = await _context.AlumnoEntities.FindAsync(id);
+            var alumno = await _context.Alumnos.FindAsync(id);
             if (alumno == null) return NotFound(new ApiResponse(404, "Alumno no encontrado"));
 
             alumno.Nombre = alumnoDTO.Nombre;
@@ -64,7 +64,7 @@ namespace TebatravelAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> ObtenerAlumno(int id)
         {
-            var alumno = await _context.AlumnoEntities.FindAsync(id);
+            var alumno = await _context.Alumnos.FindAsync(id);
             if (alumno == null) return NotFound(new ApiResponse(404, "Alumno no encontrado"));
             
             return Ok(new ApiResponse(200, "Encontrado", alumno));
@@ -73,19 +73,26 @@ namespace TebatravelAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> ListarAlumnos()
         {
-            var alumnos = await _context.AlumnoEntities.ToListAsync();
+            var alumnos = await _context.Alumnos.ToListAsync();
             return Ok(new ApiResponse(200, "Lista de alumnos", alumnos));
         }
 
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginDTO loginDTO)
         {
-            var alumno = await _context.AlumnoEntities
+            var alumno = await _context.Alumnos
                 .FirstOrDefaultAsync(x => x.Correo == loginDTO.Correo && x.Password == loginDTO.Password);
 
             if (alumno == null) return Unauthorized(new ApiResponse(401, "Credenciales inválidas"));
             
             return Ok(new ApiResponse(200, "Bienvenido a la UTCV!!", alumno));
+        }
+
+        [HttpGet("verificar-correo/{correo}")]
+        public async Task<ActionResult<bool>> VerificarCorreo(string correo)
+        {
+            var alumno = await _context.Alumnos.FirstOrDefaultAsync(a => a.Correo == correo);
+            return Ok(alumno != null);
         }
     }
 }
