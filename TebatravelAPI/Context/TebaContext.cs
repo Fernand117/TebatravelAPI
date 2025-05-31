@@ -10,6 +10,7 @@ namespace TebatravelAPI.Context
         public virtual DbSet<CarreraEntity> Carreras { get; set; }
         public virtual DbSet<EscuelaEntity> Escuelas { get; set; }
         public virtual DbSet<AlumnoEntity> Alumnos { get; set; }
+        public virtual DbSet<AsistenciaEntity> AsistenciaEntities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,14 @@ namespace TebatravelAPI.Context
                 entity.ToTable("Escuela");
 
                 entity.Property(e => e.EscuelaId).ValueGeneratedOnAdd().UseIdentityByDefaultColumn();
+            });
+
+            modelBuilder.Entity<AsistenciaEntity>(entity =>
+            {
+                entity.HasKey(a => a.Id).HasName("PK_Asistencia");
+                entity.ToTable("Asistencia");
+
+                entity.Property(a => a.Id).ValueGeneratedOnAdd().UseIdentityByDefaultColumn();
             });
 
             modelBuilder.Entity<AlumnoEntity>(entity =>
