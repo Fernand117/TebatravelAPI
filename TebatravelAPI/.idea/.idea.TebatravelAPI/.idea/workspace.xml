@@ -12,6 +12,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f84c17e2-e726-454d-b9e0-db7c7fcf6e01" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TebatravelAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TebatravelAPI/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/TebaContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Migrations/TebaContextModelSnapshot.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,6 +168,7 @@
       <workItem from="1748565655301" duration="2039000" />
       <workItem from="1748717448831" duration="153000" />
       <workItem from="1748717889088" duration="2334000" />
+      <workItem from="1748928984119" duration="15000" />
     </task>
     <task id="LOCAL-00001" summary="feat(asistencias):se añade controlador para gestionar asistencias del alumno">
       <option name="closed" value="true" />

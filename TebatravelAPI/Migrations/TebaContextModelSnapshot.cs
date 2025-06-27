@@ -24,11 +24,11 @@ namespace TebatravelAPI.Migrations
 
             modelBuilder.Entity("TebatravelAPI.Entities.AlumnoEntity", b =>
                 {
-                    b.Property<int>("AlummnoId")
+                    b.Property<int>("AlumnoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AlummnoId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AlumnoId"));
 
                     b.Property<int>("CarreraId")
                         .HasColumnType("integer");
@@ -63,14 +63,12 @@ namespace TebatravelAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("AlummnoId")
+                    b.HasKey("AlumnoId")
                         .HasName("PK_AlumnoId");
 
-                    b.HasIndex("CarreraId")
-                        .IsUnique();
+                    b.HasIndex("CarreraId");
 
-                    b.HasIndex("EscuelaId")
-                        .IsUnique();
+                    b.HasIndex("EscuelaId");
 
                     b.ToTable("Alumno", (string)null);
                 });
@@ -94,7 +92,7 @@ namespace TebatravelAPI.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id")
-                        .HasName("PK_AsistenciaId");
+                        .HasName("PK_Asistencia");
 
                     b.ToTable("Asistencia", (string)null);
                 });
@@ -107,12 +105,17 @@ namespace TebatravelAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CarreraId"));
 
+                    b.Property<int>("AlumnoId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("NombreCarrera")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("CarreraId")
                         .HasName("PK_CarreraId");
+
+                    b.HasIndex("AlumnoId");
 
                     b.ToTable("Carrera", (string)null);
                 });
@@ -125,6 +128,9 @@ namespace TebatravelAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EscuelaId"));
 
+                    b.Property<int>("AlumnoId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Clave")
                         .IsRequired()
                         .HasColumnType("text");
@@ -136,21 +142,23 @@ namespace TebatravelAPI.Migrations
                     b.HasKey("EscuelaId")
                         .HasName("PK_EscuelaId");
 
+                    b.HasIndex("AlumnoId");
+
                     b.ToTable("Escuela", (string)null);
                 });
 
             modelBuilder.Entity("TebatravelAPI.Entities.AlumnoEntity", b =>
                 {
                     b.HasOne("TebatravelAPI.Entities.CarreraEntity", "Carrera")
-                        .WithOne("Alumno")
-                        .HasForeignKey("TebatravelAPI.Entities.AlumnoEntity", "CarreraId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany()
+                        .HasForeignKey("CarreraId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TebatravelAPI.Entities.EscuelaEntity", "Escuela")
-                        .WithOne("Alumno")
-                        .HasForeignKey("TebatravelAPI.Entities.AlumnoEntity", "EscuelaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany()
+                        .HasForeignKey("EscuelaId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Carrera");
@@ -160,14 +168,24 @@ namespace TebatravelAPI.Migrations
 
             modelBuilder.Entity("TebatravelAPI.Entities.CarreraEntity", b =>
                 {
-                    b.Navigation("Alumno")
+                    b.HasOne("TebatravelAPI.Entities.AlumnoEntity", "Alumno")
+                        .WithMany()
+                        .HasForeignKey("AlumnoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Alumno");
                 });
 
             modelBuilder.Entity("TebatravelAPI.Entities.EscuelaEntity", b =>
                 {
-                    b.Navigation("Alumno")
+                    b.HasOne("TebatravelAPI.Entities.AlumnoEntity", "Alumno")
+                        .WithMany()
+                        .HasForeignKey("AlumnoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Alumno");
                 });
 #pragma warning restore 612, 618
         }
